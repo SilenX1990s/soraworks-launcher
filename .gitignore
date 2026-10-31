@@ -22,3 +22,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Cloudflare Worker local state / secrets
+.wrangler/
+.dev.vars
+worker/.dev.vars
