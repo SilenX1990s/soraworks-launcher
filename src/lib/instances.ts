@@ -49,8 +49,19 @@ export interface Instance {
   // --- Branding (the instance's look) ---
   accentColor?: string;
   accentColor2?: string;
+  /** Full-window ambient background (the big art behind everything). */
   background?: InstanceBackground;
+  /** Card/banner cover: an image URL, or a CSS gradient string. */
+  cover?: string;
   iconText?: string;
+  /** Small square icon image URL (shown in the left rail); falls back to iconText. */
+  iconImage?: string;
+
+  // --- Live-ish stats (synced from backend later; stubbed now) ---
+  playersOnline?: number;
+
+  // --- Community links (shown in the social dock) ---
+  links?: { discord?: string; website?: string; instagram?: string; email?: string };
 }
 
 /**
@@ -74,11 +85,16 @@ export const BUNDLED_INSTANCES: Instance[] = [
     accentColor2: "#9d6cff",
     background: {
       type: "gradient",
-      value: "linear-gradient(135deg, #1a1f3a 0%, #2a1a3a 50%, #0e1016 100%)",
-      dim: 0.1,
+      value:
+        "radial-gradient(900px 600px at 75% 20%, rgba(108,140,255,0.35), transparent), radial-gradient(700px 500px at 20% 90%, rgba(157,108,255,0.3), transparent), linear-gradient(135deg, #12152a, #0e1016)",
+      dim: 0.18,
       blur: 0,
     },
+    cover:
+      "radial-gradient(400px 300px at 70% 25%, rgba(108,140,255,0.55), transparent), linear-gradient(135deg, #2a2f5a, #1a1430)",
     iconText: "S",
+    playersOnline: 0,
+    links: { discord: "https://discord.gg/soraworks", website: "https://soraworks.net" },
   },
   {
     id: "vanilla-1201",
@@ -94,10 +110,13 @@ export const BUNDLED_INSTANCES: Instance[] = [
     accentColor2: "#17b0c0",
     background: {
       type: "gradient",
-      value: "linear-gradient(135deg, #0c1411 0%, #10231a 60%, #0e1016 100%)",
-      dim: 0.1,
+      value:
+        "radial-gradient(800px 600px at 70% 15%, rgba(47,207,127,0.3), transparent), linear-gradient(135deg, #0d1a14, #0e1016)",
+      dim: 0.16,
     },
+    cover: "radial-gradient(400px 300px at 70% 25%, rgba(47,207,127,0.5), transparent), linear-gradient(135deg, #123026, #0e1a16)",
     iconText: "V",
+    playersOnline: 0,
   },
 ];
 

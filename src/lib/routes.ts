@@ -1,2 +1,2 @@
 /** Top-level navigation destinations. */
-export type Route = "home" | "instances" | "accounts" | "settings" | "about";
+export type Route = "library" | "play" | "accounts" | "settings" | "about";

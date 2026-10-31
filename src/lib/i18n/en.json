@@ -10,6 +10,20 @@
     "accounts": "Accounts",
     "about": "About"
   },
+  "shell": {
+    "search": "Search for servers…",
+    "online": "{n} Online",
+    "addInstance": "Add instance",
+    "explore": "Explore",
+    "library": "Library",
+    "ownerOnly": "Instances are published from the SoraWorks dashboard."
+  },
+  "home": {
+    "greetMorning": "GOOD MORNING",
+    "greetAfternoon": "GOOD AFTERNOON",
+    "greetEvening": "GOOD EVENING",
+    "summary": "{instances} instances · {players} players online now"
+  },
   "common": {
     "ok": "OK",
     "cancel": "Cancel",

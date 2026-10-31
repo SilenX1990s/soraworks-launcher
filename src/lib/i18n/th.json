@@ -10,6 +10,20 @@
     "accounts": "บัญชี",
     "about": "เกี่ยวกับ"
   },
+  "shell": {
+    "search": "ค้นหาเซิร์ฟเวอร์…",
+    "online": "ออนไลน์ {n}",
+    "addInstance": "เพิ่มอินสแตนซ์",
+    "explore": "สำรวจ",
+    "library": "คลัง",
+    "ownerOnly": "อินสแตนซ์เผยแพร่จาก Dashboard ของ SoraWorks"
+  },
+  "home": {
+    "greetMorning": "สวัสดีตอนเช้า",
+    "greetAfternoon": "สวัสดีตอนบ่าย",
+    "greetEvening": "สวัสดีตอนค่ำ",
+    "summary": "{instances} อินสแตนซ์ · {players} คนออนไลน์ตอนนี้"
+  },
   "common": {
     "ok": "ตกลง",
     "cancel": "ยกเลิก",

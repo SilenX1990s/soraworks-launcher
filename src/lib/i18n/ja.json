@@ -10,6 +10,20 @@
     "accounts": "アカウント",
     "about": "情報"
   },
+  "shell": {
+    "search": "サーバーを検索…",
+    "online": "{n} オンライン",
+    "addInstance": "インスタンスを追加",
+    "explore": "探索",
+    "library": "ライブラリ",
+    "ownerOnly": "インスタンスは SoraWorks ダッシュボードから公開されます。"
+  },
+  "home": {
+    "greetMorning": "おはようございます",
+    "greetAfternoon": "こんにちは",
+    "greetEvening": "こんばんは",
+    "summary": "{instances} インスタンス · {players} 人がオンライン"
+  },
   "common": {
     "ok": "OK",
     "cancel": "キャンセル",

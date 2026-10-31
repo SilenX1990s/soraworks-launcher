@@ -1,333 +1,167 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
   import { t } from "../i18n";
   import { activeAccount } from "../stores/accounts";
-  import {
-    activeInstance,
-    effectiveJavaMajor,
-    javaOverrides,
-    setJavaOverride,
-  } from "../stores/instances";
-  import { settings } from "../stores/settings";
-  import { launch } from "../tauri";
-  import { loaderLabel, SELECTABLE_JAVA } from "../instances";
-  import type { LaunchProgress } from "../types";
+  import { instances, selectInstance, applyInstanceBranding } from "../stores/instances";
+  import { loaderLabel, type Instance } from "../instances";
   import type { Route } from "../routes";
-  import type { UnlistenFn } from "@tauri-apps/api/event";
 
   let { onNavigate }: { onNavigate: (r: Route) => void } = $props();
 
-  let running = $state(false);
-  let progress = $state<LaunchProgress | null>(null);
-  let errorMsg = $state("");
-
-  let unlisteners: UnlistenFn[] = [];
-
-  onMount(async () => {
-    unlisteners.push(
-      await launch.onProgress((p) => {
-        progress = p;
-        running = true;
-      }),
-    );
-    unlisteners.push(
-      await launch.onExit((e) => {
-        running = false;
-        progress = null;
-        if (e.code && e.code !== 0) errorMsg = $t("launch.crashed", { code: e.code });
-      }),
-    );
-    running = await launch.isRunning().catch(() => false);
-  });
-
-  onDestroy(() => unlisteners.forEach((u) => u()));
-
-  const inst = $derived($activeInstance);
-  const javaMajor = $derived(inst ? effectiveJavaMajor(inst) : 17);
-  // Reference javaOverrides so the shown value reacts to changes.
-  $effect(() => void $javaOverrides);
-
-  async function play() {
-    errorMsg = "";
-    if (!inst) return;
-    if (!$activeAccount) {
-      errorMsg = $t("launch.needAccount");
-      onNavigate("accounts");
-      return;
-    }
-    if (inst.loader.type !== "vanilla") {
-      errorMsg = $t("instance.loaderNotReady", { loader: loaderLabel(inst.loader) });
-      return;
-    }
-    try {
-      running = true;
-      progress = { stage: "preparing", done: 0, total: 0 };
-      await launch.vanilla(
-        {
-          versionId: inst.gameVersion,
-          accountId: $activeAccount.id,
-          maxMemoryMb: inst.memoryMb,
-          extraJvmArgs: inst.jvmArgs,
-          javaMajor: effectiveJavaMajor(inst),
-        },
-        $settings.gameDir,
-      );
-    } catch (e) {
-      running = false;
-      progress = null;
-      errorMsg = String(e);
-    }
+  function greetingKey(): string {
+    const h = new Date().getHours();
+    if (h < 12) return "home.greetMorning";
+    if (h < 18) return "home.greetAfternoon";
+    return "home.greetEvening";
   }
 
-  function progressLabel(p: LaunchProgress): string {
-    switch (p.stage) {
-      case "assets":
-        return $t("launch.downloadingAssets", { done: p.done, total: p.total });
-      case "libraries":
-        return $t("launch.downloadingLibraries", { done: p.done, total: p.total });
-      case "java":
-        return $t("java.downloading", { version: javaMajor });
-      case "running":
-        return $t("launch.playing");
-      case "launching":
-        return $t("launch.launching");
-      default:
-        return $t("launch.preparing");
-    }
-  }
-
-  const pct = $derived(
-    progress && progress.total > 0
-      ? Math.round((progress.done / progress.total) * 100)
-      : null,
+  const totalOnline = $derived(
+    $instances.reduce((s, i) => s + (i.playersOnline ?? 0), 0),
   );
+
+  function open(inst: Instance) {
+    selectInstance(inst.id);
+    applyInstanceBranding(inst);
+    onNavigate("play");
+  }
 </script>
 
-{#if inst}
-  <div class="home">
-    <div class="hero">
-      <div class="hero-top">
-        <div class="inst-icon" style:--a={inst.accentColor} style:--b={inst.accentColor2}>
-          {inst.iconText ?? inst.name.charAt(0)}
-        </div>
-        <div class="hero-text">
-          <h1>{inst.name}</h1>
-          {#if inst.description}<p class="muted">{inst.description}</p>{/if}
-        </div>
-        <button class="switch ghost" onclick={() => onNavigate("instances")}>
-          {$t("instance.select")}
-        </button>
-      </div>
+<div class="library">
+  <header class="greet">
+    <div class="eyebrow">{$t(greetingKey())}</div>
+    <h1>{$activeAccount?.name ?? "SoraWorks"}</h1>
+    <p class="muted summary">
+      {$t("home.summary", { instances: $instances.length, players: totalOnline })}
+    </p>
+  </header>
 
-      <div class="specs">
-        <div class="spec">
-          <span class="k">{$t("instance.gameVersion")}</span>
-          <span class="v">{inst.gameVersion}</span>
-        </div>
-        <div class="spec">
-          <span class="k">{$t("instance.loader")}</span>
-          <span class="v">{loaderLabel(inst.loader)}</span>
-        </div>
-        <div class="spec">
-          <span class="k">{$t("instance.memory")}</span>
-          <span class="v">{inst.memoryMb === 0 ? $t("instance.auto") : `${inst.memoryMb} MB`}</span>
-        </div>
-        <div class="spec java">
-          <span class="k">{$t("instance.javaRuntime")}</span>
-          {#if inst.allowJavaOverride}
-            <select
-              value={javaMajor}
-              onchange={(e) => setJavaOverride(inst.id, +(e.target as HTMLSelectElement).value)}
-            >
-              {#each SELECTABLE_JAVA as j}
-                <option value={j.major}>
-                  {j.label}{j.major === inst.javaMajor ? ` · ${$t("instance.auto")}` : ""}
-                </option>
-              {/each}
-            </select>
+  <div class="grid">
+    {#each $instances as inst (inst.id)}
+      <button class="card" onclick={() => open(inst)} style:--a={inst.accentColor} style:--b={inst.accentColor2}>
+        <div class="cover" style:background={inst.cover ?? "linear-gradient(135deg, var(--a), var(--b))"}>
+          {#if inst.iconImage}
+            <img class="badge" src={inst.iconImage} alt="" />
           {:else}
-            <span class="v">Java {inst.javaMajor}</span>
+            <div class="badge txt">{inst.iconText ?? inst.name.charAt(0)}</div>
           {/if}
-        </div>
-      </div>
-      <p class="locked-note muted">🔒 {$t("instance.lockedHint")}</p>
-    </div>
-
-    <div class="playbar">
-      <div class="status">
-        {#if progress}
-          <div class="pstage">{progressLabel(progress)}</div>
-          <div class="bar">
-            <div
-              class="fill"
-              class:indeterminate={pct === null}
-              style:width={pct !== null ? `${pct}%` : "40%"}
-            ></div>
+          <div class="shade"></div>
+          <div class="info">
+            <strong class="name">{inst.name}</strong>
+            <div class="tags">
+              <span class="tag">{inst.gameVersion}</span>
+              <span class="tag">{loaderLabel(inst.loader)}</span>
+            </div>
           </div>
-        {:else if errorMsg}
-          <div class="err">{errorMsg}</div>
-        {:else if inst.serverAddress}
-          <div class="muted">{$t("instance.server")}: {inst.serverAddress}</div>
-        {/if}
-      </div>
-      <div class="actions">
-        {#if running}
-          <button class="stop ghost" onclick={() => launch.stop()}>{$t("launch.stop")}</button>
-        {/if}
-        <button class="primary play" onclick={play} disabled={running}>
-          {running ? $t("launch.playing") : $t("instance.play")}
-        </button>
-      </div>
-    </div>
+        </div>
+      </button>
+    {/each}
   </div>
-{/if}
+</div>
 
 <style>
-  .home {
+  .library {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    gap: 1rem;
+    gap: 1.6rem;
   }
 
-  .hero {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1.4rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
+  .greet .eyebrow {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+  }
+
+  .greet h1 {
+    font-size: 2.3rem;
+    margin: 0.1rem 0 0.2rem;
+  }
+
+  .summary {
+    font-size: 0.95rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .card {
+    padding: 0;
+    border: none;
+    background: none;
     border-radius: var(--radius-lg);
-    padding: 1.6rem;
-    position: relative;
     overflow: hidden;
+    transition: transform 0.12s ease;
   }
 
-  .hero-top {
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .cover {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background-size: cover;
+    background-position: center;
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    align-items: flex-end;
   }
 
-  .inst-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: var(--radius);
+  .badge {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.6);
+  }
+
+  .badge.txt {
     display: grid;
     place-items: center;
-    font-size: 1.8rem;
     font-weight: 800;
+    font-size: 1.2rem;
     color: #fff;
-    background: linear-gradient(135deg, var(--a, var(--accent)), var(--b, var(--accent2)));
-    box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--a, var(--accent)) 60%, transparent);
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
   }
 
-  .hero-text {
-    flex: 1;
-    min-width: 0;
+  .shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.1) 55%, transparent 100%);
   }
 
-  .hero-text h1 {
-    font-size: 1.8rem;
-    margin: 0;
-  }
-
-  .switch {
-    border: 1px solid var(--border);
-    white-space: nowrap;
-  }
-
-  .specs {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.8rem;
-  }
-
-  .spec {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding: 0.8rem 1rem;
-    background: var(--surface-2);
-    border-radius: var(--radius-sm);
-  }
-
-  .spec .k {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  .spec .v {
-    font-weight: 650;
-    font-size: 1.05rem;
-  }
-
-  .spec.java select {
+  .info {
+    position: relative;
+    padding: 1rem;
     width: 100%;
+    text-align: left;
   }
 
-  .locked-note {
-    font-size: 0.82rem;
-    margin: 0;
-  }
-
-  .playbar {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1rem 1.4rem;
-  }
-
-  .status {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .pstage {
-    font-size: 0.9rem;
+  .name {
+    display: block;
+    font-size: 1.15rem;
+    color: #fff;
     margin-bottom: 0.4rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   }
 
-  .bar {
-    height: 8px;
-    background: var(--surface-2);
-    border-radius: 999px;
-    overflow: hidden;
-  }
-
-  .fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    transition: width 0.3s ease;
-  }
-
-  .fill.indeterminate {
-    width: 40% !important;
-    animation: slide 1.1s infinite ease-in-out;
-  }
-
-  @keyframes slide {
-    0% { margin-left: -40%; }
-    100% { margin-left: 100%; }
-  }
-
-  .actions {
+  .tags {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.35rem;
+    flex-wrap: wrap;
   }
 
-  .play {
-    font-size: 1.25rem;
-    padding: 0.7em 2.4em;
-  }
-
-  .err {
-    color: #ff9b9b;
-    font-size: 0.9rem;
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.18em 0.6em;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    backdrop-filter: blur(4px);
   }
 </style>
