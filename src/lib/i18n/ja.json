@@ -1,0 +1,104 @@
+{
+  "app": {
+    "name": "SoraWorks Launcher",
+    "tagline": "軽く、速く、あなたのものに"
+  },
+  "nav": {
+    "home": "ホーム",
+    "versions": "バージョン",
+    "settings": "設定",
+    "accounts": "アカウント",
+    "about": "情報"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "キャンセル",
+    "close": "閉じる",
+    "save": "保存",
+    "retry": "再試行",
+    "loading": "読み込み中…",
+    "add": "追加",
+    "remove": "削除",
+    "refresh": "更新",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "account": {
+    "title": "Microsoft アカウント",
+    "signIn": "Microsoft でサインイン",
+    "signInBrowser": "サインイン（ブラウザ）",
+    "signInDeviceCode": "コードでサインイン",
+    "signOut": "サインアウト",
+    "signedInAs": "{name} でサインイン中",
+    "noAccount": "サインインしていません",
+    "addAccount": "アカウントを追加",
+    "switchAccount": "アカウント切り替え",
+    "active": "使用中",
+    "signingIn": "サインインしています…",
+    "waitingForBrowser": "ブラウザでのサインイン完了を待っています…",
+    "deviceCodeInstruction": "別の端末で {url} を開き、このコードを入力してください：",
+    "noOfflineMode": "オンラインの Microsoft ログインのみ。オフライン／非正規モードはありません。"
+  },
+  "version": {
+    "title": "ゲームバージョン",
+    "select": "バージョンを選択",
+    "release": "リリース",
+    "snapshot": "スナップショット",
+    "oldBeta": "ベータ",
+    "oldAlpha": "アルファ",
+    "showSnapshots": "スナップショットを表示",
+    "latestRelease": "最新リリース",
+    "latestSnapshot": "最新スナップショット",
+    "loader": "Mod ローダー",
+    "loaderVanilla": "Vanilla",
+    "refreshing": "バージョン一覧を更新中…"
+  },
+  "java": {
+    "title": "Java ランタイム",
+    "auto": "自動（推奨）",
+    "autoDesc": "各バージョンに合った Java を自動でダウンロード・選択します。",
+    "downloading": "Java {version} をダウンロード中…",
+    "ready": "Java {version} 準備完了",
+    "custom": "カスタム Java パスを使用"
+  },
+  "launch": {
+    "play": "プレイ",
+    "playing": "実行中",
+    "launching": "起動中…",
+    "stop": "停止",
+    "preparing": "ファイルを準備中…",
+    "downloadingAssets": "アセットをダウンロード中 ({done}/{total})",
+    "downloadingLibraries": "ライブラリをダウンロード中 ({done}/{total})",
+    "needAccount": "プレイするには Microsoft アカウントでサインインしてください。",
+    "crashed": "ゲームが予期せず終了しました（終了コード {code}）。"
+  },
+  "settings": {
+    "title": "設定",
+    "language": "言語",
+    "appearance": "外観",
+    "theme": "テーマ",
+    "mode": "モード",
+    "modeLight": "ライト",
+    "modeDark": "ダーク",
+    "modeSystem": "システムに合わせる",
+    "accentColor": "アクセントカラー",
+    "fontScale": "文字サイズ",
+    "cornerRadius": "角の丸み",
+    "lowSpec": "低スペックモード",
+    "lowSpecDesc": "動画背景や重いエフェクトをオフにします。",
+    "uiSounds": "UI 効果音",
+    "gameDir": "ゲームフォルダ",
+    "memory": "メモリ (RAM)"
+  },
+  "error": {
+    "network": "ネットワークエラーです。接続を確認して再試行してください。",
+    "auth_cancelled": "サインインがキャンセルされました。",
+    "auth_no_xbox": "この Microsoft アカウントには Xbox プロフィールがありません。minecraft.net を一度開いてから再試行してください。",
+    "auth_child": "このアカウントは子供用で、Microsoft ファミリーに追加する必要があります。",
+    "auth_no_game": "このアカウントは Minecraft: Java Edition を所有していません。",
+    "auth_region": "お使いのアカウントの地域では Xbox Live を利用できません。",
+    "unknown": "問題が発生しました：{detail}"
+  }
+}

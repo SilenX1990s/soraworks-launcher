@@ -1,0 +1,104 @@
+{
+  "app": {
+    "name": "SoraWorks Launcher",
+    "tagline": "เบา เร็ว เป็นของคุณ"
+  },
+  "nav": {
+    "home": "หน้าแรก",
+    "versions": "เวอร์ชัน",
+    "settings": "ตั้งค่า",
+    "accounts": "บัญชี",
+    "about": "เกี่ยวกับ"
+  },
+  "common": {
+    "ok": "ตกลง",
+    "cancel": "ยกเลิก",
+    "close": "ปิด",
+    "save": "บันทึก",
+    "retry": "ลองใหม่",
+    "loading": "กำลังโหลด…",
+    "add": "เพิ่ม",
+    "remove": "ลบ",
+    "refresh": "รีเฟรช",
+    "copy": "คัดลอก",
+    "copied": "คัดลอกแล้ว",
+    "yes": "ใช่",
+    "no": "ไม่"
+  },
+  "account": {
+    "title": "บัญชี Microsoft",
+    "signIn": "เข้าสู่ระบบด้วย Microsoft",
+    "signInBrowser": "เข้าสู่ระบบ (เบราว์เซอร์)",
+    "signInDeviceCode": "เข้าสู่ระบบด้วยรหัส",
+    "signOut": "ออกจากระบบ",
+    "signedInAs": "เข้าสู่ระบบเป็น {name}",
+    "noAccount": "ยังไม่ได้เข้าสู่ระบบ",
+    "addAccount": "เพิ่มบัญชี",
+    "switchAccount": "สลับบัญชี",
+    "active": "กำลังใช้งาน",
+    "signingIn": "กำลังเข้าสู่ระบบ…",
+    "waitingForBrowser": "กำลังรอให้คุณเข้าสู่ระบบในเบราว์เซอร์…",
+    "deviceCodeInstruction": "บนอุปกรณ์อื่น เปิด {url} แล้วกรอกรหัสนี้:",
+    "noOfflineMode": "เข้าสู่ระบบผ่าน Microsoft ออนไลน์เท่านั้น ไม่มีโหมดออฟไลน์/เถื่อน"
+  },
+  "version": {
+    "title": "เวอร์ชันเกม",
+    "select": "เลือกเวอร์ชัน",
+    "release": "รีลีส",
+    "snapshot": "สแนปช็อต",
+    "oldBeta": "เบต้า",
+    "oldAlpha": "อัลฟา",
+    "showSnapshots": "แสดงสแนปช็อต",
+    "latestRelease": "รีลีสล่าสุด",
+    "latestSnapshot": "สแนปช็อตล่าสุด",
+    "loader": "ตัวโหลดม็อด",
+    "loaderVanilla": "Vanilla",
+    "refreshing": "กำลังอัปเดตรายการเวอร์ชัน…"
+  },
+  "java": {
+    "title": "ชุดรันไทม์ Java",
+    "auto": "อัตโนมัติ (แนะนำ)",
+    "autoDesc": "ดาวน์โหลดและเลือก Java ที่เหมาะกับแต่ละเวอร์ชันให้เอง",
+    "downloading": "กำลังดาวน์โหลด Java {version}…",
+    "ready": "Java {version} พร้อมใช้งาน",
+    "custom": "ใช้พาธ Java ที่กำหนดเอง"
+  },
+  "launch": {
+    "play": "เล่น",
+    "playing": "กำลังเล่น",
+    "launching": "กำลังเปิดเกม…",
+    "stop": "หยุด",
+    "preparing": "กำลังเตรียมไฟล์…",
+    "downloadingAssets": "กำลังดาวน์โหลด assets ({done}/{total})",
+    "downloadingLibraries": "กำลังดาวน์โหลด libraries ({done}/{total})",
+    "needAccount": "เข้าสู่ระบบด้วยบัญชี Microsoft ก่อนเล่น",
+    "crashed": "เกมปิดตัวเองผิดปกติ (exit code {code})"
+  },
+  "settings": {
+    "title": "ตั้งค่า",
+    "language": "ภาษา",
+    "appearance": "รูปลักษณ์",
+    "theme": "ธีม",
+    "mode": "โหมด",
+    "modeLight": "สว่าง",
+    "modeDark": "มืด",
+    "modeSystem": "ตามระบบ",
+    "accentColor": "สีหลัก",
+    "fontScale": "ขนาดฟอนต์",
+    "cornerRadius": "ความมนขอบ",
+    "lowSpec": "โหมด Low-spec",
+    "lowSpecDesc": "ปิดพื้นหลังวิดีโอและเอฟเฟกต์หนักๆ",
+    "uiSounds": "เสียงเอฟเฟกต์ UI",
+    "gameDir": "โฟลเดอร์เกม",
+    "memory": "หน่วยความจำ (RAM)"
+  },
+  "error": {
+    "network": "เครือข่ายมีปัญหา ตรวจการเชื่อมต่อแล้วลองใหม่",
+    "auth_cancelled": "ยกเลิกการเข้าสู่ระบบ",
+    "auth_no_xbox": "บัญชี Microsoft นี้ยังไม่มีโปรไฟล์ Xbox เปิด minecraft.net หนึ่งครั้งแล้วลองใหม่",
+    "auth_child": "บัญชีนี้เป็นของเด็ก ต้องเพิ่มเข้า Microsoft Family ก่อน",
+    "auth_no_game": "บัญชีนี้ไม่ได้เป็นเจ้าของ Minecraft: Java Edition",
+    "auth_region": "Xbox Live ไม่รองรับในภูมิภาคของบัญชีนี้",
+    "unknown": "เกิดข้อผิดพลาด: {detail}"
+  }
+}

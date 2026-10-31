@@ -1,0 +1,162 @@
+/* Global styles. All colors come from CSS variables set by the theme store,
+   so changing a theme re-styles everything with no reload. */
+
+:root {
+  /* Fallback values; the theme store overwrites these at runtime. */
+  --accent: #6c8cff;
+  --accent-rgb: 108, 140, 255;
+  --accent2: #9d6cff;
+  --bg: #0e1016;
+  --surface: #171a22;
+  --surface-2: #202532;
+  --surface-solid: #171a22;
+  --text: #eef1f8;
+  --text-muted: #9aa3b7;
+  --border: #2a3040;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 18px;
+  --font-scale: 1;
+
+  --font: "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans Thai",
+    "Noto Sans JP", system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: calc(15px * var(--font-scale));
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  user-select: none;
+}
+
+#app {
+  height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5em;
+  font-weight: 650;
+}
+
+a {
+  color: var(--accent);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.55em 1em;
+  color: var(--text);
+  background: var(--surface-2);
+  transition: background 0.15s, transform 0.05s, opacity 0.15s;
+}
+
+button:hover {
+  background: color-mix(in srgb, var(--surface-2) 80%, var(--text) 8%);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-weight: 600;
+}
+
+button.primary:hover {
+  filter: brightness(1.08);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+}
+
+button.ghost {
+  background: transparent;
+}
+
+button.ghost:hover {
+  background: var(--surface-2);
+}
+
+input,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5em 0.7em;
+}
+
+input[type="range"] {
+  padding: 0;
+  accent-color: var(--accent);
+}
+
+input[type="color"] {
+  padding: 2px;
+  height: 2.2em;
+  width: 3em;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.spread {
+  justify-content: space-between;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}

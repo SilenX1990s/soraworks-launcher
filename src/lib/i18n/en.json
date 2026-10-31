@@ -1,0 +1,104 @@
+{
+  "app": {
+    "name": "SoraWorks Launcher",
+    "tagline": "Lightweight. Fast. Yours."
+  },
+  "nav": {
+    "home": "Home",
+    "versions": "Versions",
+    "settings": "Settings",
+    "accounts": "Accounts",
+    "about": "About"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "retry": "Retry",
+    "loading": "Loading…",
+    "add": "Add",
+    "remove": "Remove",
+    "refresh": "Refresh",
+    "copy": "Copy",
+    "copied": "Copied",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "account": {
+    "title": "Microsoft account",
+    "signIn": "Sign in with Microsoft",
+    "signInBrowser": "Sign in (browser)",
+    "signInDeviceCode": "Sign in with a code",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as {name}",
+    "noAccount": "No account signed in",
+    "addAccount": "Add account",
+    "switchAccount": "Switch account",
+    "active": "Active",
+    "signingIn": "Signing in…",
+    "waitingForBrowser": "Waiting for you to finish signing in in your browser…",
+    "deviceCodeInstruction": "On another device, open {url} and enter this code:",
+    "noOfflineMode": "Online Microsoft login only — no offline or cracked mode."
+  },
+  "version": {
+    "title": "Game version",
+    "select": "Select a version",
+    "release": "Release",
+    "snapshot": "Snapshot",
+    "oldBeta": "Beta",
+    "oldAlpha": "Alpha",
+    "showSnapshots": "Show snapshots",
+    "latestRelease": "Latest release",
+    "latestSnapshot": "Latest snapshot",
+    "loader": "Mod loader",
+    "loaderVanilla": "Vanilla",
+    "refreshing": "Updating version list…"
+  },
+  "java": {
+    "title": "Java runtime",
+    "auto": "Automatic (recommended)",
+    "autoDesc": "Download and pick the right Java for each version.",
+    "downloading": "Downloading Java {version}…",
+    "ready": "Java {version} ready",
+    "custom": "Use a custom Java path"
+  },
+  "launch": {
+    "play": "Play",
+    "playing": "Running",
+    "launching": "Launching…",
+    "stop": "Stop",
+    "preparing": "Preparing files…",
+    "downloadingAssets": "Downloading assets ({done}/{total})",
+    "downloadingLibraries": "Downloading libraries ({done}/{total})",
+    "needAccount": "Sign in with a Microsoft account to play.",
+    "crashed": "The game closed unexpectedly (exit code {code})."
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "mode": "Mode",
+    "modeLight": "Light",
+    "modeDark": "Dark",
+    "modeSystem": "Follow system",
+    "accentColor": "Accent color",
+    "fontScale": "Font size",
+    "cornerRadius": "Corner roundness",
+    "lowSpec": "Low-spec mode",
+    "lowSpecDesc": "Turns off video backgrounds and heavy effects.",
+    "uiSounds": "UI sound effects",
+    "gameDir": "Game folder",
+    "memory": "Memory (RAM)"
+  },
+  "error": {
+    "network": "Network error. Check your connection and try again.",
+    "auth_cancelled": "Sign-in was cancelled.",
+    "auth_no_xbox": "This Microsoft account has no Xbox profile. Open minecraft.net once, then try again.",
+    "auth_child": "This account belongs to a child and must be added to a Microsoft Family.",
+    "auth_no_game": "This account does not own Minecraft: Java Edition.",
+    "auth_region": "Xbox Live is not available in your account's region.",
+    "unknown": "Something went wrong: {detail}"
+  }
+}
