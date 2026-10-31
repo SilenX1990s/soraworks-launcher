@@ -148,14 +148,7 @@
       />
     </label>
 
-    <div class="field">
-      <span class="flabel">{$t("settings.memory")} — {$settings.maxMemoryMb === 0 ? "auto" : `${$settings.maxMemoryMb} MB`}</span>
-      <input
-        type="range" min="0" max="16384" step="512"
-        value={$settings.maxMemoryMb}
-        oninput={(e) => patchSettings({ maxMemoryMb: +(e.target as HTMLInputElement).value })}
-      />
-    </div>
+    <p class="muted small">🔒 {$t("instance.lockedHint")}</p>
   </section>
 </div>
 

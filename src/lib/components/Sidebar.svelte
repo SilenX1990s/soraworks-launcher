@@ -7,7 +7,7 @@
 
   const items: { id: Route; icon: string }[] = [
     { id: "home", icon: "▶" },
-    { id: "versions", icon: "◳" },
+    { id: "instances", icon: "▣" },
     { id: "accounts", icon: "◉" },
     { id: "settings", icon: "⚙" },
     { id: "about", icon: "ⓘ" },

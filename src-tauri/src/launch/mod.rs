@@ -53,6 +53,8 @@ pub struct LaunchOptions {
     pub account_id: String,
     pub max_memory_mb: u32,
     pub extra_jvm_args: Vec<String>,
+    /// Player's Java override; 0 means "pick automatically from the version".
+    pub java_major: u32,
 }
 
 // ---- OS / rules helpers ----
@@ -136,11 +138,17 @@ pub async fn launch_vanilla(
 
     // 3. Ensure Java.
     emit_progress(&app, "java", 0, 0);
-    let major = detail
-        .java_version
-        .as_ref()
-        .map(|j| j.major_version)
-        .unwrap_or_else(|| java::default_major_for(&detail.id));
+    // The player may override the Java major; otherwise use what the version
+    // declares, falling back to a sensible default for very old versions.
+    let major = if opts.java_major != 0 {
+        opts.java_major
+    } else {
+        detail
+            .java_version
+            .as_ref()
+            .map(|j| j.major_version)
+            .unwrap_or_else(|| java::default_major_for(&detail.id))
+    };
     let java_info = java::ensure(&root, major).await?;
 
     // 4. Client jar.

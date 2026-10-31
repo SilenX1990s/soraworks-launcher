@@ -54,6 +54,8 @@ export interface LaunchOptions {
   maxMemoryMb: number;
   /** Extra JVM args (optimizer flags, etc.). */
   extraJvmArgs?: string[];
+  /** Force a specific Java major version (player override); 0 = auto by version. */
+  javaMajor?: number;
 }
 
 /** Payload of the "launch://progress" event. */

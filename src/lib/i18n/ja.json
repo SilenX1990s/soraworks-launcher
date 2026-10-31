@@ -5,7 +5,7 @@
   },
   "nav": {
     "home": "ホーム",
-    "versions": "バージョン",
+    "instances": "インスタンス",
     "settings": "設定",
     "accounts": "アカウント",
     "about": "情報"
@@ -40,6 +40,23 @@
     "waitingForBrowser": "ブラウザでのサインイン完了を待っています…",
     "deviceCodeInstruction": "別の端末で {url} を開き、このコードを入力してください：",
     "noOfflineMode": "オンラインの Microsoft ログインのみ。オフライン／非正規モードはありません。"
+  },
+  "instance": {
+    "title": "インスタンス",
+    "select": "インスタンスを選択",
+    "play": "プレイ",
+    "locked": "インスタンスで設定済み",
+    "lockedHint": "これらはインスタンスの所有者が固定しており、変更できません。",
+    "gameVersion": "ゲームバージョン",
+    "loader": "Mod ローダー",
+    "memory": "メモリ",
+    "javaRuntime": "Java ランタイム",
+    "javaDefault": "インスタンス既定 (Java {major})",
+    "javaOverrideNote": "変更できるのは Java バージョンだけです。",
+    "server": "サーバー",
+    "join": "サーバーに参加",
+    "loaderNotReady": "{loader} インスタンスの起動は次のアップデートで対応します。Vanilla は現在利用できます。",
+    "auto": "自動"
   },
   "version": {
     "title": "ゲームバージョン",

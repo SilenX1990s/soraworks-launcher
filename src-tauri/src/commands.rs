@@ -73,6 +73,8 @@ pub struct LaunchOptionsDto {
     pub max_memory_mb: u32,
     #[serde(default)]
     pub extra_jvm_args: Vec<String>,
+    #[serde(default)]
+    pub java_major: u32,
 }
 
 #[tauri::command]
@@ -87,6 +89,7 @@ pub async fn launch_vanilla(
         account_id: options.account_id,
         max_memory_mb: options.max_memory_mb,
         extra_jvm_args: options.extra_jvm_args,
+        java_major: options.java_major,
     };
     launch::launch_vanilla(app, state.child.clone(), opts, game_dir).await
 }

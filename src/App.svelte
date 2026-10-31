@@ -4,20 +4,28 @@
   import type { Route } from "./lib/routes";
   import Sidebar from "./lib/components/Sidebar.svelte";
   import LanguagePicker from "./lib/components/LanguagePicker.svelte";
+  import Background from "./lib/components/Background.svelte";
   import HomeView from "./lib/views/HomeView.svelte";
-  import VersionsView from "./lib/views/VersionsView.svelte";
+  import InstancesView from "./lib/views/InstancesView.svelte";
   import AccountsView from "./lib/views/AccountsView.svelte";
   import SettingsView from "./lib/views/SettingsView.svelte";
   import AboutView from "./lib/views/AboutView.svelte";
   import { refreshAccounts } from "./lib/stores/accounts";
+  import { activeInstance, applyInstanceBranding } from "./lib/stores/instances";
+  import { get } from "svelte/store";
 
   let route = $state<Route>("home");
 
   onMount(() => {
     // Load existing accounts from the OS keychain on startup.
     refreshAccounts().catch((e) => console.error("refreshAccounts failed", e));
+    // Apply the active instance's branding on launch.
+    const inst = get(activeInstance);
+    if (inst) applyInstanceBranding(inst);
   });
 </script>
+
+<Background instance={$activeInstance} />
 
 <div class="shell">
   <Sidebar bind:route />
@@ -33,8 +41,8 @@
     <section class="content">
       {#if route === "home"}
         <HomeView onNavigate={(r) => (route = r)} />
-      {:else if route === "versions"}
-        <VersionsView />
+      {:else if route === "instances"}
+        <InstancesView onNavigate={(r) => (route = r)} />
       {:else if route === "accounts"}
         <AccountsView />
       {:else if route === "settings"}

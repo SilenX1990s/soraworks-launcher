@@ -5,7 +5,7 @@
   },
   "nav": {
     "home": "Home",
-    "versions": "Versions",
+    "instances": "Instances",
     "settings": "Settings",
     "accounts": "Accounts",
     "about": "About"
@@ -40,6 +40,23 @@
     "waitingForBrowser": "Waiting for you to finish signing in in your browser…",
     "deviceCodeInstruction": "On another device, open {url} and enter this code:",
     "noOfflineMode": "Online Microsoft login only — no offline or cracked mode."
+  },
+  "instance": {
+    "title": "Instances",
+    "select": "Choose an instance",
+    "play": "Play",
+    "locked": "Set by the instance",
+    "lockedHint": "These are fixed by the instance owner and can't be changed.",
+    "gameVersion": "Game version",
+    "loader": "Mod loader",
+    "memory": "Memory",
+    "javaRuntime": "Java runtime",
+    "javaDefault": "Instance default (Java {major})",
+    "javaOverrideNote": "The Java version is the only setting you can change.",
+    "server": "Server",
+    "join": "Join server",
+    "loaderNotReady": "Launching {loader} instances is coming in the next update. Vanilla instances work now.",
+    "auto": "Auto"
   },
   "version": {
     "title": "Game version",
