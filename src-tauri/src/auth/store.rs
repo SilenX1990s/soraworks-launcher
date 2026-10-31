@@ -49,8 +49,27 @@ fn save_index(index: &Index) -> Result<()> {
     Ok(())
 }
 
+// Windows Credential Manager caps a secret at 2560 bytes (~1280 UTF-16 chars),
+// and our stored JSON (two long JWT-ish tokens) easily exceeds that. So we
+// store the JSON in fixed-size chunks across multiple keychain entries:
+//   "<id>"      -> chunk count
+//   "<id>#<i>"  -> chunk i
+// and reassemble on load. 1000 BMP chars = 2000 UTF-16 bytes, safely under cap.
+const CHUNK_CHARS: usize = 1000;
+
+fn chunk_key(id: &str, i: usize) -> String {
+    format!("{id}#{i}")
+}
+
 pub fn load_account(id: &str) -> Result<StoredAccount> {
-    let json = entry(id)?.get_password()?;
+    let count: usize = entry(id)?.get_password()?.parse().unwrap_or(0);
+    if count == 0 {
+        return Err(Error::NotFound(format!("account {id}")));
+    }
+    let mut json = String::new();
+    for i in 0..count {
+        json.push_str(&entry(&chunk_key(id, i))?.get_password()?);
+    }
     Ok(serde_json::from_str(&json)?)
 }
 
@@ -58,7 +77,25 @@ pub fn load_account(id: &str) -> Result<StoredAccount> {
 /// account added becomes the active one.
 pub fn save_account(acc: &StoredAccount) -> Result<()> {
     let json = serde_json::to_string(acc)?;
-    entry(&acc.id)?.set_password(&json)?;
+    let chars: Vec<char> = json.chars().collect();
+    let chunks: Vec<String> = chars.chunks(CHUNK_CHARS).map(|c| c.iter().collect()).collect();
+
+    // Remove any stale chunks from a previous, longer save.
+    let old_count: usize = entry(&acc.id)
+        .ok()
+        .and_then(|e| e.get_password().ok())
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(0);
+    for i in chunks.len()..old_count {
+        if let Ok(e) = entry(&chunk_key(&acc.id, i)) {
+            let _ = e.delete_credential();
+        }
+    }
+
+    for (i, chunk) in chunks.iter().enumerate() {
+        entry(&chunk_key(&acc.id, i))?.set_password(chunk)?;
+    }
+    entry(&acc.id)?.set_password(&chunks.len().to_string())?;
 
     let mut index = load_index();
     if !index.ids.contains(&acc.id) {
@@ -71,6 +108,17 @@ pub fn save_account(acc: &StoredAccount) -> Result<()> {
 }
 
 pub fn delete_account(id: &str) -> Result<()> {
+    // Delete all chunks, then the count entry.
+    let count: usize = entry(id)
+        .ok()
+        .and_then(|e| e.get_password().ok())
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(0);
+    for i in 0..count {
+        if let Ok(e) = entry(&chunk_key(id, i)) {
+            let _ = e.delete_credential();
+        }
+    }
     if let Ok(e) = entry(id) {
         let _ = e.delete_credential();
     }
