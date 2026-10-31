@@ -1,0 +1,135 @@
+{
+  "app": {
+    "name": "SoraWorks Launcher",
+    "tagline": "Lightweight. Fast. Yours."
+  },
+  "nav": {
+    "home": "Home",
+    "instances": "Instances",
+    "settings": "Settings",
+    "accounts": "Accounts",
+    "about": "About"
+  },
+  "shell": {
+    "search": "Search for servers…",
+    "online": "{n} Online",
+    "addInstance": "Add instance",
+    "explore": "Explore",
+    "library": "Library",
+    "ownerOnly": "Instances are published from the SoraWorks dashboard."
+  },
+  "home": {
+    "greetMorning": "GOOD MORNING",
+    "greetAfternoon": "GOOD AFTERNOON",
+    "greetEvening": "GOOD EVENING",
+    "summary": "{instances} instances · {players} players online now"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "retry": "Retry",
+    "loading": "Loading…",
+    "add": "Add",
+    "remove": "Remove",
+    "refresh": "Refresh",
+    "copy": "Copy",
+    "copied": "Copied",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "account": {
+    "title": "Microsoft account",
+    "signIn": "Sign in with Microsoft",
+    "signInBrowser": "Sign in (browser)",
+    "signInDeviceCode": "Sign in with a code",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as {name}",
+    "noAccount": "No account signed in",
+    "addAccount": "Add account",
+    "switchAccount": "Switch account",
+    "active": "Active",
+    "signingIn": "Signing in…",
+    "waitingForBrowser": "Waiting for you to finish signing in in your browser…",
+    "deviceCodeInstruction": "On another device, open {url} and enter this code:",
+    "noOfflineMode": "Online Microsoft login only — no offline or cracked mode."
+  },
+  "instance": {
+    "title": "Instances",
+    "select": "Choose an instance",
+    "play": "Play",
+    "locked": "Set by the instance",
+    "lockedHint": "These are fixed by the instance owner and can't be changed.",
+    "gameVersion": "Game version",
+    "loader": "Mod loader",
+    "memory": "Memory",
+    "javaRuntime": "Java runtime",
+    "javaDefault": "Instance default (Java {major})",
+    "javaOverrideNote": "The Java version is the only setting you can change.",
+    "server": "Server",
+    "join": "Join server",
+    "loaderNotReady": "Launching {loader} instances is coming in the next update. Vanilla instances work now.",
+    "auto": "Auto"
+  },
+  "version": {
+    "title": "Game version",
+    "select": "Select a version",
+    "release": "Release",
+    "snapshot": "Snapshot",
+    "oldBeta": "Beta",
+    "oldAlpha": "Alpha",
+    "showSnapshots": "Show snapshots",
+    "latestRelease": "Latest release",
+    "latestSnapshot": "Latest snapshot",
+    "loader": "Mod loader",
+    "loaderVanilla": "Vanilla",
+    "refreshing": "Updating version list…"
+  },
+  "java": {
+    "title": "Java runtime",
+    "auto": "Automatic (recommended)",
+    "autoDesc": "Download and pick the right Java for each version.",
+    "downloading": "Downloading Java {version}…",
+    "ready": "Java {version} ready",
+    "custom": "Use a custom Java path"
+  },
+  "launch": {
+    "play": "Play",
+    "playing": "Running",
+    "launching": "Launching…",
+    "stop": "Stop",
+    "preparing": "Preparing files…",
+    "downloadingAssets": "Downloading assets ({done}/{total})",
+    "downloadingLibraries": "Downloading libraries ({done}/{total})",
+    "needAccount": "Sign in with a Microsoft account to play.",
+    "crashed": "The game closed unexpectedly (exit code {code})."
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "mode": "Mode",
+    "modeLight": "Light",
+    "modeDark": "Dark",
+    "modeSystem": "Follow system",
+    "accentColor": "Accent color",
+    "fontScale": "Font size",
+    "cornerRadius": "Corner roundness",
+    "lowSpec": "Low-spec mode",
+    "lowSpecDesc": "Turns off video backgrounds and heavy effects.",
+    "uiSounds": "UI sound effects",
+    "gameDir": "Game folder",
+    "memory": "Memory (RAM)"
+  },
+  "error": {
+    "network": "Network error. Check your connection and try again.",
+    "auth_cancelled": "Sign-in was cancelled.",
+    "auth_no_xbox": "This Microsoft account has no Xbox profile. Open minecraft.net once, then try again.",
+    "auth_child": "This account belongs to a child and must be added to a Microsoft Family.",
+    "auth_no_game": "This account does not own Minecraft: Java Edition.",
+    "auth_region": "Xbox Live is not available in your account's region.",
+    "unknown": "Something went wrong: {detail}"
+  }
+}

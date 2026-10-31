@@ -1,0 +1,74 @@
+[package]
+name = "soraworks-launcher"
+version = "0.1.0"
+description = "SoraWorks Launcher Optimizer"
+authors = ["SoraWorks"]
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+# Tauri v2 keeps app logic in a library crate so it can be reused on mobile.
+name = "soraworks_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-opener = "2"
+tauri-plugin-os = "2"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+
+# HTTP + downloads (rustls so we don't depend on a system OpenSSL in CI).
+reqwest = { version = "0.12", default-features = false, features = [
+  "json",
+  "rustls-tls",
+  "stream",
+] }
+futures-util = "0.3"
+
+# Hashing / crypto helpers.
+sha1 = "0.10"
+sha2 = "0.10"
+hex = "0.4"
+base64 = "0.22"
+rand = "0.8"
+
+# Secure token storage in the OS keychain.
+keyring = { version = "3", features = [
+  "apple-native",
+  "windows-native",
+  "sync-secret-service",
+  "crypto-rust",
+] }
+
+# Archive extraction for downloaded Java runtimes.
+zip = "2"
+flate2 = "1"
+tar = "0.4"
+
+dirs = "5"
+thiserror = "1"
+url = "2"
+
+# Tiny local HTTP server to catch the OAuth redirect.
+tiny_http = "0.12"
+# Open the system browser for interactive login.
+open = "5"
+
+[features]
+# This feature is used for production builds where `devUrl` is not needed.
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

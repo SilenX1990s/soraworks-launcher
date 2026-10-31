@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "SoraWorks Launcher",
+  "version": "0.1.0",
+  "identifier": "com.soraworks.launcher",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "SoraWorks Launcher",
+        "width": 1040,
+        "height": 680,
+        "minWidth": 860,
+        "minHeight": 560,
+        "resizable": true,
+        "decorations": true,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data: https: asset: http://asset.localhost; media-src 'self' data: https: asset: http://asset.localhost; style-src 'self' 'unsafe-inline'; connect-src 'self' ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Game",
+    "shortDescription": "Lightweight Minecraft launcher",
+    "longDescription": "SoraWorks Launcher Optimizer - a lightweight Minecraft launcher for the SoraWorks modpack and server community."
+  },
+  "plugins": {}
+}
